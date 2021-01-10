@@ -21,7 +21,8 @@ const initialPieData = {
   series:[]
 }
 
-const BASE_URL = 'https://sds1-opapito.herokuapp.com';
+//const BASE_URL = 'https://sds1-opapito.herokuapp.com';
+const BASE_URL = 'http://localhost:8080';
 
 const Charts = () => {
   // creating three states for each graph
