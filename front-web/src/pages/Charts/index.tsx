@@ -4,7 +4,16 @@ import './styles.css';
 import { barOptions, pieOptions } from './chart-options';
 import Chart from 'react-apexcharts';
 import axios from 'axios';
-import {buildBarSeries, getPlatformChartData, getGenderChartData} from './helpers'
+import {buildBarSeries, getPlatformChartData, getGenderChartData} from './helpers';
+import { css } from "@emotion/core";
+import BounceLoader from "react-spinners/BounceLoader";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: orange;
+`;
+
 
 type PieChartData = {
   labels: string[];
@@ -21,8 +30,7 @@ const initialPieData = {
   series:[]
 }
 
-//const BASE_URL = 'https://sds1-opapito.herokuapp.com';
-const BASE_URL = 'http://localhost:8080';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Charts = () => {
   // creating three states for each graph
@@ -30,11 +38,16 @@ const Charts = () => {
   const [platformData, setPlatformData] = useState<PieChartData>(initialPieData);
   const [genderData, setGenderData] = useState<PieChartData>(initialPieData);
   // React hook -> the first component is the variable, the second it the function to update the first variable (it is possible to use any name for variable and function)
+  const [loading, setLoading] = useState<boolean>();
+  const [color, setColor] = useState<string>();
+
 
   useEffect(()=>{
+    setLoading(true);
+    setColor("#e07243");
       async function getData(){
-        const recordsResponse = await axios.get(`${BASE_URL}/records`);
-        const gamesResponse = await axios.get(`${BASE_URL}/games`);
+        const recordsResponse = await axios.get(`${API_URL}/records`);
+        const gamesResponse = await axios.get(`${API_URL}/games`);
         
         const barData = buildBarSeries(gamesResponse.data, recordsResponse.data.content);
         setBarChartData(barData);
@@ -44,6 +57,7 @@ const Charts = () => {
         
         const genderChartData = getGenderChartData(recordsResponse.data.content);
         setGenderData(genderChartData);
+        setLoading(false);
       }
       getData();
 }, [])
@@ -51,6 +65,12 @@ const Charts = () => {
   return (
     <div className="page-container">
       <Filters link="/records" linkText="SEE TABLE" />
+      {loading 
+      ?
+      <div className="sweet-loading">
+        <BounceLoader color={color} css={override} loading={loading} />
+      </div>
+      :
       <div className="chart-container">
         <div className="top-related">
           <h1 className="top-related-title">
@@ -88,6 +108,7 @@ const Charts = () => {
           </div>
         </div>
       </div>
+      }
     </div>
   )
 };

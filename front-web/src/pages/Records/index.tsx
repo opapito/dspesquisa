@@ -9,15 +9,13 @@ import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
 
 
-//const BASE_URL = 'https://sds1-opapito.herokuapp.com';
-const BASE_URL = 'http://localhost:8080';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const override = css`
   display: block;
   margin: 0 auto;
   border-color: orange;
 `;
-
 
 const Records = () => {
 
@@ -31,11 +29,11 @@ const Records = () => {
   useEffect(() => {
     setLoading(true);
     setColor("#e07243");
-      axios.get(`${BASE_URL}/records?linesPerPage=12&page=${activePage}`)
-        .then(response =>{
-          setRecordsResponse(response.data);
-          setLoading(false);
-        });
+        axios.get(`${API_URL}/records?linesPerPage=12&page=${activePage}`)
+          .then(response =>{
+            setRecordsResponse(response.data);
+            setLoading(false);
+          });
   }, [activePage]); // every time activePage changes, the axios will make a request
 
   const handlePageChange = (index: number) => {
