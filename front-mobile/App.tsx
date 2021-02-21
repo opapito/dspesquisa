@@ -20,7 +20,7 @@ export default function App() {
     } else {
       return (
         <View style={styles.container}>
-          <Text style={styles.text}>Hello world!</Text>
+          <Text style={styles.text}>Hello React Native!</Text>
           <StatusBar style="auto" />
         </View>
       );
