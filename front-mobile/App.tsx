@@ -8,6 +8,8 @@ import {
   Play_700Bold
 } from '@expo-google-fonts/play';
 
+import Header from './src/components/Header';
+import Home from './src/pages/Home';
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -20,7 +22,8 @@ export default function App() {
     } else {
       return (
         <View style={styles.container}>
-          <Text style={styles.text}>Hello React Native!</Text>
+          <Header />
+          <Home />
           <StatusBar style="auto" />
         </View>
       );
@@ -30,12 +33,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text:{
-    color: '#FFF',
-    fontSize: 50
+    backgroundColor: '#0B1F34'
   }
 });
