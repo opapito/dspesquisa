@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import Header from '../../components/Header';
 import PlatformCard from './PlatformCards';
 import { GamePlatform } from './Types';
 import RNPickerSelect from 'react-native-picker-select';
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
+import axios from 'axios';
 
 const placeholder = {
   label:'Select the game',
   value: null
 }
+
+const BASE_URL = 'http://192.168.1.13:8080';
 
 const CreatRecord = () => {
   const [platform, setPlatform] = useState<GamePlatform>();
@@ -17,6 +20,13 @@ const CreatRecord = () => {
   const handleChangePlatform = (selectedPlatform: GamePlatform) =>{
     setPlatform(selectedPlatform);
   }
+
+  useEffect(()=>{
+    axios.get(`${BASE_URL}/games`)
+    .then(response =>{
+      console.log(response.data);
+    })
+  },[]);
 
   return (
     <>
