@@ -3,12 +3,12 @@ import  { RectButton } from 'react-native-gesture-handler';
 import { StyleSheet, View, TextInput, Text, Modal } from 'react-native';
 import Header from '../../components/Header';
 import PlatformCard from './PlatformCards';
-import { GamePlatform, Game } from './Types';
+import { GamePlatform, Game, ExpoIcons } from './Types';
 import RNPickerSelect from 'react-native-picker-select';
 // *See https://github.com/lawnstarter/react-native-picker-select
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
 import axios from 'axios';
-
+import { AntDesign } from '@expo/vector-icons';
 
 const placeholder = {
   label:'Select the game',
@@ -51,6 +51,9 @@ const CreatRecord = () => {
   const [allGames, setAllGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalColor, setModalColor] = useState('#5DED47');
+  const [modalIcon, setModalIcon] = useState<ExpoIcons>('checkcircle');
+  const [modalText, setModalText] = useState('');
   
 
   const handleChangePlatform = (selectedPlatform: GamePlatform) =>{
@@ -63,19 +66,27 @@ const CreatRecord = () => {
 
   const handleSubmit = () => {
     const payload = { name, age, gameId: selectedGame };
-    setModalVisible(true);
-    
-/*     axios.post(`${BASE_URL}/records`, payload)
+
+    axios.post(`${BASE_URL}/records`, payload)
       .then(() => {
         console.log('Success');
-        setModalVisible(true);
         setName('');
         setAge('');
         setSelectedGame('');
-        setPlatform(undefined); 
+        setPlatform(undefined);
+        setModalText('Saved!');
+        setModalIcon('checkcircle')
+        setModalColor('#5DED47')
+        setModalVisible(true); 
       })
-      .catch(() => console.log('Error on saving data!'))
- */  }
+      .catch(() => {
+        setModalText('Error on saving data!');
+        setModalIcon('closecircleo')
+        setModalColor('#FF3D3D')
+        setModalVisible(true);
+        console.log('Error on saving data!')
+      })
+    }
 
   useEffect(()=>{
     axios.get(`${BASE_URL}/games`)
@@ -158,9 +169,9 @@ const CreatRecord = () => {
                 }
             >
               <View style={modalStyles.centeredView}>
-                <View style={modalStyles.modalView}>
-                  <Text style={styles.buttonText}> Saved!</Text> 
-                        
+                <View style={[modalStyles.modalView, {  backgroundColor: modalColor }]}>
+                  <AntDesign name={modalIcon} size={24} color="black" />
+                  <Text style={styles.buttonText}>{modalText}</Text> 
                 </View>
               </View>
             </Modal>            
@@ -180,7 +191,6 @@ const modalStyles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: '#5DED47',
     borderRadius: 20,
     padding: 35,
     alignItems: "center",

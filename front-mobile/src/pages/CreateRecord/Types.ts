@@ -7,3 +7,5 @@ export type Game = {
   label:string;
   value:number;
 }
+
+export type ExpoIcons = 'checkcircle' | 'closecircleo';
