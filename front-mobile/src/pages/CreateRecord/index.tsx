@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import  { RectButton } from 'react-native-gesture-handler';
-import { StyleSheet, View, TextInput, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Text, Modal } from 'react-native';
 import Header from '../../components/Header';
 import PlatformCard from './PlatformCards';
 import { GamePlatform, Game } from './Types';
@@ -8,6 +8,7 @@ import RNPickerSelect from 'react-native-picker-select';
 // *See https://github.com/lawnstarter/react-native-picker-select
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
 import axios from 'axios';
+
 
 const placeholder = {
   label:'Select the game',
@@ -49,6 +50,7 @@ const CreatRecord = () => {
   const [selectedGame, setSelectedGame] = useState('');
   const [allGames, setAllGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
   
 
   const handleChangePlatform = (selectedPlatform: GamePlatform) =>{
@@ -61,17 +63,19 @@ const CreatRecord = () => {
 
   const handleSubmit = () => {
     const payload = { name, age, gameId: selectedGame };
+    setModalVisible(true);
     
-    axios.post(`${BASE_URL}/records`, payload)
+/*     axios.post(`${BASE_URL}/records`, payload)
       .then(() => {
         console.log('Success');
+        setModalVisible(true);
         setName('');
         setAge('');
         setSelectedGame('');
         setPlatform(undefined); 
       })
       .catch(() => console.log('Error on saving data!'))
-  }
+ */  }
 
   useEffect(()=>{
     axios.get(`${BASE_URL}/games`)
@@ -142,11 +146,55 @@ const CreatRecord = () => {
               </Text>
             </RectButton>
           </View>
+          <View style={modalStyles.centeredView}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onShow={()=>
+                    setTimeout(() => {
+                      setModalVisible(!modalVisible)
+                    }, 500)
+                }
+            >
+              <View style={modalStyles.centeredView}>
+                <View style={modalStyles.modalView}>
+                  <Text style={styles.buttonText}> Saved!</Text> 
+                        
+                </View>
+              </View>
+            </Modal>            
+          </View>
       </View>
     </>
   );
 
 }
+
+const modalStyles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#5DED47',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  }
+});
+
 
 const pickerSelectStyles = StyleSheet.create(  
   {
