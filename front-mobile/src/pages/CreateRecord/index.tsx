@@ -54,6 +54,7 @@ const CreatRecord = () => {
   const [modalColor, setModalColor] = useState('#5DED47');
   const [modalIcon, setModalIcon] = useState<ExpoIcons>('checkcircle');
   const [modalText, setModalText] = useState('');
+  const [isEnabledBtn, setIsEnableBtn] = useState(false)
   
 
   const handleChangePlatform = (selectedPlatform: GamePlatform) =>{
@@ -62,6 +63,8 @@ const CreatRecord = () => {
       game => game.platform === selectedPlatform
     )
     setFilteredGames(gamesByPlatform);
+    setIsEnableBtn((age && name && selectedGame) ? true : false);
+    //console.log('age && name && selectedGame -> ', (age && name && selectedGame) ? 'true' : 'false');
   }
 
   const handleSubmit = () => {
@@ -105,7 +108,10 @@ const CreatRecord = () => {
           style={styles.inputText}
           placeholder="Name" 
           placeholderTextColor="#9E9E9E"
-          onChangeText={text => setName(text)}
+          onChangeText={text => {
+            setName(text);
+            setIsEnableBtn((age && text && selectedGame) ? true : false);
+          }}
           value={name}
         />
         <TextInput
@@ -114,7 +120,10 @@ const CreatRecord = () => {
            placeholder="Age"
            placeholderTextColor="#9E9E9E"
            maxLength={3}
-           onChangeText={text => setAge(text)}
+           onChangeText={text => {
+             setAge(text);
+             setIsEnableBtn((text && name && selectedGame) ? true : false);
+            }}
            value={age}
         />
         <View style={styles.platformContainer}>
@@ -141,6 +150,7 @@ const CreatRecord = () => {
             key={selectedGame}
             onValueChange={value => {
               setSelectedGame(value);
+              setIsEnableBtn((age && name && value) ? true : false);
             }}
             placeholder={placeholder}
             value={selectedGame}
@@ -151,7 +161,7 @@ const CreatRecord = () => {
             }}
           />
           <View style={styles.footer}>
-            <RectButton style={styles.button} onPress={handleSubmit}>
+            <RectButton style={[styles.button, isEnabledBtn ? styles.buttonEnabled : styles.buttonDisabled]} onPress={handleSubmit} enabled={isEnabledBtn}>
               <Text style={styles.buttonText}>
                 SAVE
               </Text>
@@ -268,13 +278,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#00D4FF',
     flexDirection: 'row',
     borderRadius: 10,
     height: 60,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonEnabled: {
+    backgroundColor: '#00D4FF',
+  }, 
+  buttonDisabled: {
+    backgroundColor: '#D3D3D3',
   },
   buttonText: {
     fontFamily: "Play_700Bold",
