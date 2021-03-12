@@ -37,8 +37,22 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
       <div className="filters-container records-actions"> 
         {link !== "/records" && (
         <>
-          <input type="date" id="startDate"  onChange={handleChangeStartDate} required pattern="\d{2}-\d{2}-\d{4}"/>
-          <input type="date" id="endDate"  onChange={handleChangeEndDate} required pattern="\d{2}-\d{2}-\d{4}" />
+          <input
+            type="text"
+            id="startDate"
+            placeholder="Start date"
+            onFocus={(e) => e.target.type = 'date'} 
+            onBlur={(e) =>{e.target.type = 'text'; e.target.placeholder = "Start date"}}
+            onChange={handleChangeStartDate}
+            required pattern="\d{2}-\d{2}-\d{4}"
+          />
+          <input type="text"
+            id="endDate"
+            placeholder="End date"
+            onFocus={(e) => e.target.type = 'date'} 
+            onBlur={(e) =>{e.target.type = 'text'; e.target.placeholder = "End date"}}
+            onChange={handleChangeEndDate}
+            required pattern="\d{2}-\d{2}-\d{4}" />
           <button className="clean-filters" onClick={handleClearBtn}> CLEAR </button>
         </>
           )

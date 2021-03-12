@@ -16,7 +16,7 @@ const Home = () => (
       <Link to="/records">
         <div className="home-actions">
           <button className="home-btn">
-            I want to know what they are
+            I want to know which they are
         </button>
           <div className="home-btn-icon">
             <ArrowIcon />
