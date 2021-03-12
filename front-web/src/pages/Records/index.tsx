@@ -44,12 +44,14 @@ const Records = () => {
   useEffect(() => {
     setLoading(true);
     setColor("#e07243");
-        axios.get(`${API_URL}/records?${startDate ? startDate: ''}&linesPerPage=12&page=${activePage}&orderBy=moment&direction=ASC${endDate ? '&'+endDate: ''}`)
-          .then(response =>{
-            setRecordsResponse(response.data);
-            setLoading(false);
-          });
-  }, [activePage, startDate, endDate]); // every time activePage changes, the axios will make a request
+    axios.get(`${API_URL}/records?${startDate ? startDate: ''}&linesPerPage=12&page=${activePage}&orderBy=moment&direction=ASC${endDate ? '&'+endDate: ''}`)
+    .then(response =>{
+      setRecordsResponse(response.data);
+      setLoading(false);
+    });
+  }, [activePage, endDate, startDate]);
+   // every time activePage changes, the axios will make a request
+  
 
   const handlePageChange = (index: number) => {
     setActivePage(index)

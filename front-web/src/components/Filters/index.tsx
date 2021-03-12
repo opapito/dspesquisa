@@ -15,7 +15,7 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
       if (mountFilter){
         mountFilter(startDate, endDate);
       }      
-    }, [startDate, endDate])
+    }, [startDate, endDate, mountFilter])
 
     const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
       setStartDate(e.target.value);
