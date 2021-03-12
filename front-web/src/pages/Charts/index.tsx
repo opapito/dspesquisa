@@ -14,7 +14,6 @@ const override = css`
   border-color: orange;
 `;
 
-
 type PieChartData = {
   labels: string[];
   series: number[]
@@ -80,7 +79,7 @@ const Charts = () => {
             <Chart
               options={barOptions}
               type="bar"
-              width="900"
+              width="800"
               height="650"
               series={[{ data: barChartData }]}
             />

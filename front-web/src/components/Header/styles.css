@@ -19,6 +19,15 @@
   color: #FFF;
 }
 
+.gitHubLogo {
+  height: 40px;
+  width: 40px;
+}
+
+.gitHubLink {
+  margin-left: auto;
+}
+
 @media (max-width: 850px) {
   .main-header {
     justify-content: center;

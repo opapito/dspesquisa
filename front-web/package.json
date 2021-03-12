@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.1.2",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "@typescript-eslint/eslint-plugin": "^4.15.2"
   }
 }

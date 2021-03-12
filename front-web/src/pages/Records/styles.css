@@ -6,9 +6,9 @@
 }
 
 .filters-container.records-actions {
-  justify-content: flex-end;
+  justify-content:flex-end;
 }
- 
+
 .records-table {
   width: 100%;
   border-bottom: 10px solid var(--color-turquoise);
@@ -56,10 +56,11 @@
 .filters-container {
   background-color: var(--color-darkslategray);
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 13px 15px;
   margin-bottom: 25px;
   border-radius: 10px;
+  
 }
 
 .filters-container input {
@@ -88,7 +89,7 @@
 .filters-container .clean-filters {
   background-color: var(--color-coral);
   color: #FFF;
-  margin-left: 20px;
+  margin-right: auto;
 }
 
 .filters-container .clean-filters:hover {
@@ -98,6 +99,7 @@
 .filters-container .action-filters {
   background-color: var(--color-turquoise);
   color: #0E1B28;
+  
 }
 
 .filters-container .action-filters:hover {
