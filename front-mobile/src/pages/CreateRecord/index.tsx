@@ -3,12 +3,13 @@ import  { RectButton } from 'react-native-gesture-handler';
 import { StyleSheet, View, TextInput, Text, Modal } from 'react-native';
 import Header from '../../components/Header';
 import PlatformCard from './PlatformCards';
-import { GamePlatform, Game, ExpoIcons } from './Types';
+import { GamePlatform, Game, ExpoIcons } from '../Types';
 import RNPickerSelect from 'react-native-picker-select';
 // *See https://github.com/lawnstarter/react-native-picker-select
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
 import axios from 'axios';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const placeholder = {
   label:'Select the game',
@@ -55,7 +56,12 @@ const CreatRecord = () => {
   const [modalIcon, setModalIcon] = useState<ExpoIcons>('checkcircle');
   const [modalText, setModalText] = useState('');
   const [isEnabledBtn, setIsEnableBtn] = useState(false)
+  const navigation = useNavigation();
   
+  const handleOnPress = () => {
+
+    navigation.navigate('Charts');
+  }
 
   const handleChangePlatform = (selectedPlatform: GamePlatform) =>{
     setPlatform(selectedPlatform);
@@ -164,6 +170,13 @@ const CreatRecord = () => {
             <RectButton style={[styles.button, isEnabledBtn ? styles.buttonEnabled : styles.buttonDisabled]} onPress={handleSubmit} enabled={isEnabledBtn}>
               <Text style={styles.buttonText}>
                 SAVE
+              </Text>
+            </RectButton>
+          </View>
+          <View style={styles.footer}>
+            <RectButton style={[styles.button, styles.buttonEnabled]} onPress={handleOnPress} >
+              <Text style={styles.buttonText}>
+                GRAPHS
               </Text>
             </RectButton>
           </View>

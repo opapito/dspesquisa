@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image, Alert } from 'react-native';
+import { Text, StyleSheet, View, Image } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
 import Header from '../../components/Header';

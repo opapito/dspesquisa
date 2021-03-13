@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import Home from './pages/Home';
 import CreateRecord from './pages/CreateRecord';
+import Charts from './pages/Charts';
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
       >
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="CreateRecord" component={CreateRecord}/>
+        <Stack.Screen name="Charts" component={Charts}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
