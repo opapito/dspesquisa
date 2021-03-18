@@ -26,10 +26,12 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
     };
     
     const handleClearBtn = () => {
-      const startDate = (document.getElementById('startDate') as HTMLInputElement) ;
-      const endDate = (document.getElementById('endDate') as HTMLInputElement) ;
-      startDate.value = '';
-      endDate.value = '';
+      const startDateBtn = (document.getElementById('startDate') as HTMLInputElement) ;
+      const endDateBtn = (document.getElementById('endDate') as HTMLInputElement) ;
+      startDateBtn.type='text';
+      startDateBtn.value = '';
+      endDateBtn.type='text';
+      endDateBtn.value = '';
       setStartDate('');
       setEndDate('');
     };
@@ -42,17 +44,27 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
             id="startDate"
             placeholder="Start date"
             onFocus={(e) => e.target.type = 'date'} 
-            onBlur={(e) =>{e.target.type = 'text'; e.target.placeholder = "Start date"}}
+            onBlur={(e) =>{
+              if(e.target.value){
+                e.target.type = 'date';
+              } 
+             }
+            }
             onChange={handleChangeStartDate}
-            required pattern="\d{2}-\d{2}-\d{4}"
+          
           />
           <input type="text"
             id="endDate"
             placeholder="End date"
             onFocus={(e) => e.target.type = 'date'} 
-            onBlur={(e) =>{e.target.type = 'text'; e.target.placeholder = "End date"}}
+            onBlur={(e) =>{
+              if(e.target.value){
+                e.target.type = 'date';
+              } 
+             }}
             onChange={handleChangeEndDate}
-            required pattern="\d{2}-\d{2}-\d{4}" />
+          
+          />
           <button className="clean-filters" onClick={handleClearBtn}> CLEAR </button>
         </>
           )
