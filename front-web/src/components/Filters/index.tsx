@@ -47,7 +47,10 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
             onBlur={(e) =>{
               if(e.target.value){
                 e.target.type = 'date';
-              } 
+              } else {
+                e.target.type = 'text';
+                e.target.placeholder ='Start date';
+              }
              }
             }
             onChange={handleChangeStartDate}
@@ -60,7 +63,10 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
             onBlur={(e) =>{
               if(e.target.value){
                 e.target.type = 'date';
-              } 
+              } else {
+                e.target.type = 'text';
+                e.target.placeholder ='End date';
+              }
              }}
             onChange={handleChangeEndDate}
           
