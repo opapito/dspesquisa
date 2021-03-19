@@ -16,4 +16,4 @@ export type RecordItem = {
 
 export type Platform = 'XBOX' | 'PC' | 'PLAYSTATION';
 
-export type SearchFilters = 'All' | 'Dates';
+//export type SearchFilters = 'All' | 'Dates';

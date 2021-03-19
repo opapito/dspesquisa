@@ -1,28 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import BounceLoader from "react-spinners/BounceLoader";
+import { css } from "@emotion/core";
+import { RecordsResponse } from '../../pages/Records/types';
+import Records from '../../pages/Records'
+import Charts from '../../pages/Charts';
 
 type Props = {
   link: string;
   linkText: string;
-  mountFilter?: (stDate: string, endDate: string)=>void;
 }
 
-const Filters = ({ link, linkText, mountFilter}: Props) => {
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: orange;
+`;
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+const Filters = ({ link, linkText }: Props) => {
     const [startDate, setStartDate]   = useState('');
     const [endDate, setEndDate]   = useState('');
+    const [loading, setLoading] = useState<boolean>();
+    const [color, setColor] = useState<string>();
+    const [activePage, setActivePage] = useState(0);
+    const [recordsResponse, setRecordsResponse] = useState<RecordsResponse>();
+    const [recordsResponseNotPg, setRecordsResponseNotPg] = useState<RecordsResponse>();
+  
 
+      //* React Hooks
     useEffect(() => {
-      if (mountFilter){
-        mountFilter(startDate, endDate);
-      }      
-    }, [startDate, endDate, mountFilter])
+      setLoading(true);
+      setColor("#e07243");
+      axios.get(`${API_URL}/records?${startDate ? startDate: ''}&linesPerPage=12&page=${activePage}&orderBy=moment&direction=ASC${endDate ? '&'+endDate: ''}`)
+        .then(response =>{
+          setRecordsResponse(response.data);
+      });
+      //* Fetching data without pagination for graphs totalization based on startDate and endDate
+      axios.get(`${API_URL}/records?${startDate ? startDate: ''}&orderBy=moment&direction=ASC${endDate ? '&'+endDate: ''}`)
+        .then(response =>{
+          setRecordsResponseNotPg(response.data);
+          setLoading(false);
+      });
+
+    }, [activePage, endDate, startDate]);
+    
+
+    const handlePageChange = (page: number) =>{
+      setActivePage(page);
+    }
 
     const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setStartDate(e.target.value);
+      if (e.target.value){
+        setStartDate(`min=${e.target.value}T00:00:00Z`);
+      } else {
+        setStartDate('');
+      }
     };
     
     const handleChangeEndDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEndDate(e.target.value);
+      if (e.target.value){
+        setEndDate(`max=${e.target.value}T23:59:59Z`);
+      }else {
+        setEndDate('');
+      }
     };
     
     const handleClearBtn = () => {
@@ -35,10 +78,10 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
       setStartDate('');
       setEndDate('');
     };
+
     return(
+      <div className="page-container">
       <div className="filters-container records-actions"> 
-        {link !== "/records" && (
-        <>
           <input
             type="text"
             id="startDate"
@@ -72,15 +115,41 @@ const Filters = ({ link, linkText, mountFilter}: Props) => {
           
           />
           <button className="clean-filters" onClick={handleClearBtn}> CLEAR </button>
-        </>
-          )
-        }   
+          
         <Link to={link}>
           <button className="action-filters">
             {linkText}
         </button>
         </Link>
-      </div>
+        </div> 
+        
+          {loading 
+          ?
+            <div className="sweet-loading">
+              <BounceLoader color={color} css={override} loading={loading} />
+            </div>
+          :
+          (
+            link === "/charts" ? 
+            (
+              <Records
+              recordsResponse={recordsResponse}
+              activePage={activePage}
+              handlePageChange={handlePageChange}
+              loading={loading}
+              
+              />
+            )
+            :
+            (recordsResponseNotPg &&
+              <Charts
+                recordsResponseNotPg={recordsResponseNotPg}
+              />
+            )
+          )
+          }
+
+        </div>
     )
 }
 

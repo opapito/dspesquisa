@@ -4,7 +4,7 @@ import { RecordsResponse } from './types';
 import axios from 'axios';
 import { formatDate } from './helpers';
 import Pagination from './Pagination';
-import Filters from '../../components/Filters';
+//import Filters from '../../components/Filters';
 import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
 import { SearchFilters } from './types';
@@ -34,7 +34,7 @@ const Records = () => {
   const [color, setColor] = useState<string>();
   const [filter, setFilter] = useState <SearchFilters>('All');
   
-  const mountFilter = (stDate: string, endDate: string) => {
+/*   const mountFilter = (stDate: string, endDate: string) => {
     console.log('stDate->', stDate.replace('/','-'), ' endDate->', endDate.replace('/','-'));
     if (stDate){
       FILTER_MAP.Dates = (record: any) => record.moment.substring(0,10) > stDate.replace('/','-');
@@ -45,7 +45,7 @@ const Records = () => {
       setFilter('All');
       
     }
-  }
+  } */
   // React Hooks
   useEffect(() => {
     setLoading(true);
@@ -64,7 +64,7 @@ const Records = () => {
 
   return (
     <div className="page-container">
-      <Filters mountFilter={mountFilter} link="/charts" linkText="SEE GRAPHS" />
+      {/* <Filters mountFilter={mountFilter} link="/charts" linkText="SEE GRAPHS" /> */}
       {loading 
       ?
       <div className="sweet-loading">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Filters from '../../components/Filters';
 import './styles.css';
 import { barOptions, pieOptions } from './chart-options';
 import Chart from 'react-apexcharts';
@@ -7,12 +6,17 @@ import axios from 'axios';
 import {buildBarSeries, getPlatformChartData, getGenderChartData} from './helpers';
 import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
+import { RecordsResponse } from '../Records/types';
 
 const override = css`
   display: block;
   margin: 0 auto;
   border-color: orange;
 `;
+
+type Props = {
+  recordsResponseNotPg: RecordsResponse;
+}
 
 type PieChartData = {
   labels: string[];
@@ -31,7 +35,7 @@ const initialPieData = {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Charts = () => {
+const Charts = ({ recordsResponseNotPg }: Props) => {
   // creating three states for each graph
   const [barChartData, setBarChartData] = useState<BarChartData[]>([]);
   const [platformData, setPlatformData] = useState<PieChartData>(initialPieData);
@@ -45,25 +49,23 @@ const Charts = () => {
     setLoading(true);
     setColor("#e07243");
       async function getData(){
-        const recordsResponse = await axios.get(`${API_URL}/records`);
         const gamesResponse = await axios.get(`${API_URL}/games`);
         
-        const barData = buildBarSeries(gamesResponse.data, recordsResponse.data.content);
+        const barData = buildBarSeries(gamesResponse.data, recordsResponseNotPg.content);
         setBarChartData(barData);
 
-        const platformChartData = getPlatformChartData(recordsResponse.data.content);
+        const platformChartData = getPlatformChartData(recordsResponseNotPg.content);
         setPlatformData(platformChartData);
         
-        const genderChartData = getGenderChartData(recordsResponse.data.content);
+        const genderChartData = getGenderChartData(recordsResponseNotPg.content);
         setGenderData(genderChartData);
         setLoading(false);
       }
       getData();
-}, [])
+}, [recordsResponseNotPg.content])
 
   return (
-    <div className="page-container">
-      <Filters link="/records" linkText="SEE TABLE" />
+    <>
       {loading 
       ?
       <div className="sweet-loading">
@@ -103,12 +105,11 @@ const Charts = () => {
               series={genderData?.series}
               width="350"
             />
-
           </div>
         </div>
       </div>
       }
-    </div>
+    </>
   )
 };
 
