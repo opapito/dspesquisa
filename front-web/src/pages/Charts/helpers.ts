@@ -18,7 +18,12 @@ export const buildBarSeries = (games: Game[], records: RecordItem[]) => {
     return b.y - a.y;
   });
 
-  return sortedGames.slice(0, 8);
+  const noZeroGames = sortedGames.filter((a) => { return a.y > 0 });
+  /*
+    Only the first 8 games will be showed on the bar
+    If less than 8 due to filter, all will be shown
+  */
+  return noZeroGames.slice(0, noZeroGames.length > 8 ? 8 : noZeroGames.length);
 };
 
 export const getPlatformChartData = (records: RecordItem[]) => {

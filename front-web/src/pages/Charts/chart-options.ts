@@ -42,14 +42,6 @@ export const barOptions = {
   grid: {
     show: false,
   },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-      endingShape: "rounded",
-      startingShape: "rounded",
-      barHeight: "60px",
-    },
-  },
   dataLabels: {
     enabled: true,
   },

@@ -79,7 +79,20 @@ const Charts = ({ recordsResponseNotPg }: Props) => {
           </h1>
           <div className="games-container">
             <Chart
-              options={barOptions}
+              options={
+                {
+                  ...barOptions,
+                  plotOptions: {
+                    bar: {
+                      horizontal: true,
+                      endingShape: "rounded",
+                      startingShape: "rounded",
+                      barHeight: recordsResponseNotPg.content.length > 7 ?
+                       "64%":
+                       recordsResponseNotPg.content.length * 8,
+                    },
+                  },
+                }}
               type="bar"
               width="800"
               height="650"

@@ -91,6 +91,7 @@
   background-color: var(--color-coral);
   color: #FFF;
   margin-right: auto;
+  padding: 13px 75px;
 }
 
 .filters-container .clean-filters:hover {
