@@ -59,7 +59,6 @@ const CreatRecord = () => {
   const navigation = useNavigation();
   
   const handleOnPress = () => {
-
     navigation.navigate('Charts');
   }
 
@@ -70,7 +69,6 @@ const CreatRecord = () => {
     )
     setFilteredGames(gamesByPlatform);
     setIsEnableBtn((age && name && selectedGame) ? true : false);
-    //console.log('age && name && selectedGame -> ', (age && name && selectedGame) ? 'true' : 'false');
   }
 
   const handleSubmit = () => {
@@ -78,7 +76,6 @@ const CreatRecord = () => {
 
     axios.post(`${BASE_URL}/records`, payload)
       .then(() => {
-        console.log('Success');
         setName('');
         setAge('');
         setSelectedGame('');
@@ -173,13 +170,13 @@ const CreatRecord = () => {
               </Text>
             </RectButton>
           </View>
-          <View style={styles.footer}>
+ {/*          <View style={styles.footer}>
             <RectButton style={[styles.button, styles.buttonEnabled]} onPress={handleOnPress} >
               <Text style={styles.buttonText}>
                 GRAPHS
               </Text>
             </RectButton>
-          </View>
+          </View> */}
           <View style={modalStyles.centeredView}>
             <Modal
                 animationType="slide"
@@ -187,7 +184,8 @@ const CreatRecord = () => {
                 visible={modalVisible}
                 onShow={()=>
                     setTimeout(() => {
-                      setModalVisible(!modalVisible)
+                      setModalVisible(!modalVisible);
+                      navigation.navigate('Charts');
                     }, 500)
                 }
             >

@@ -31,7 +31,7 @@ export const getPlatformChartData = (records: RecordItem[]) => {
       return platform === item.gamePlatform;
     })
 
-    xy.push({x: platform, y: filteredGames.length});
+    xy.push({x: `${platform}\n${(100*(filteredGames.length/records.length)).toFixed(1)} %`, y: filteredGames.length});
   });
 
   return xy;
@@ -50,7 +50,7 @@ export const getGenderChartData = (records: RecordItem[]) => {
 
    const xy:PieChartData[] = [];
    Object.keys(genderByAmount).forEach(key=>{
-      xy.push({ x: key, y: genderByAmount[key]})
+      xy.push({ x: `${key}\n${(100*(genderByAmount[key]/records.length)).toFixed(1)} %`, y: genderByAmount[key]})
    })
 
   return xy;

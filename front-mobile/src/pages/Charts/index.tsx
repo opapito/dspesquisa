@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import Header from '../../components/Header';
 import axios from 'axios';
 import {buildBarSeries, getPlatformChartData, getGenderChartData} from './helpers';
-import { VictoryBar, VictoryChart, VictoryPie, VictoryGroup, VictoryLabel} from 'victory-native';
+import { VictoryBar, VictoryPie, VictoryGroup, VictoryLabel} from 'victory-native';
 import { PieChartData, BarChartData } from '../../pages/Types';
 import { Bounce } from 'react-native-animated-spinkit';
 
@@ -79,9 +79,10 @@ const Charts = () => {
         )
         :
         (
+          <>  
           <View style={styles.insideView}>
+          <Text style={styles.textLogo2}>Most voted</Text>
             <VictoryGroup>
-
               <VictoryBar horizontal
                data={barChartData}
                labels={({ datum })=> String(Math.round(datum._y))}
@@ -97,32 +98,33 @@ const Charts = () => {
                   easing: "bounce"                 
                 }}
 
-
               />
             </VictoryGroup>
+            <Text style={styles.textLogo2}>Platforms</Text>
             <VictoryPie
               colorScale={["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5"]}
-                //theme={VictoryTheme.material}
-              innerRadius={68} labelRadius={80}
+              labelRadius={48}
               data={platformData}
               animate={{
                 duration: 2000,
                 onLoad: { duration: 1000 },
+                easing: 'exp'
               }}
 
             />
+            <Text style={styles.textLogo2}>Genres</Text>
             <VictoryPie
               colorScale={["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5"]}
-                //theme={VictoryTheme.material}
-              innerRadius={68} labelRadius={80}
+              labelRadius={50}
               data={genderData}
               animate={{
                 duration: 2000,
-                onLoad: { duration: 1000 }
+                onLoad: { duration: 1000 },
+                easing: 'exp'     
               }}
-
             />
           </View>
+          </>
         )
       }
          </ScrollView>
@@ -139,14 +141,12 @@ const styles = StyleSheet.create({
     flex:1,
   },
   scrollView: {
-    marginHorizontal:0
-    
+    backgroundColor:'#4c5d67'    
   },
   insideView:{
-    marginHorizontal: 20,
     paddingRight: '5%',
     paddingLeft: '5%',
-    paddingBottom: 50,
+    paddingBottom: 10,
     alignItems: 'center',
   },
   sppiner: {
@@ -156,5 +156,14 @@ const styles = StyleSheet.create({
     borderColor:'#00D4FF',
     paddingTop:'1%',
   },
+  textLogo2: {
+    paddingTop:15,
+    justifyContent: 'flex-start',
+    fontWeight: 'bold',
+    fontFamily: "Play_700Bold",
+    fontSize: 18,
+    color: '#FFF'
+  },
+
 });
 
