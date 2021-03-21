@@ -108,7 +108,6 @@ const Charts = () => {
               animate={{
                 duration: 2000,
                 onLoad: { duration: 1000 },
-                easing: 'exp'
               }}
 
             />
@@ -120,7 +119,6 @@ const Charts = () => {
               animate={{
                 duration: 2000,
                 onLoad: { duration: 1000 },
-                easing: 'exp'     
               }}
             />
           </View>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Toast from 'react-native-toast-message';
 
 const Stack = createStackNavigator();
 import Home from './pages/Home';
@@ -10,6 +11,7 @@ import Charts from './pages/Charts';
 const Routes = () => {
   return (
     <NavigationContainer>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
       <Stack.Navigator
         headerMode="none"
         screenOptions={{

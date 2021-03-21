@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import  { RectButton } from 'react-native-gesture-handler';
-import { StyleSheet, View, TextInput, Text, Modal } from 'react-native';
+import { StyleSheet, View, TextInput, Text } from 'react-native';
 import Header from '../../components/Header';
 import PlatformCard from './PlatformCards';
 import { GamePlatform, Game, ExpoIcons } from '../Types';
@@ -8,8 +8,8 @@ import RNPickerSelect from 'react-native-picker-select';
 // *See https://github.com/lawnstarter/react-native-picker-select
 import { FontAwesome5 as Icon } from "@expo/vector-icons";
 import axios from 'axios';
-import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const placeholder = {
   label:'Select the game',
@@ -51,13 +51,9 @@ const CreatRecord = () => {
   const [selectedGame, setSelectedGame] = useState('');
   const [allGames, setAllGames] = useState<Game[]>([]);
   const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalColor, setModalColor] = useState('#5DED47');
-  const [modalIcon, setModalIcon] = useState<ExpoIcons>('checkcircle');
-  const [modalText, setModalText] = useState('');
   const [isEnabledBtn, setIsEnableBtn] = useState(false)
   const navigation = useNavigation();
-  
+
   const handleOnPress = () => {
     navigation.navigate('Charts');
   }
@@ -76,21 +72,36 @@ const CreatRecord = () => {
 
     axios.post(`${BASE_URL}/records`, payload)
       .then(() => {
-        setName('');
-        setAge('');
-        setSelectedGame('');
-        setPlatform(undefined);
-        setModalText('Saved!');
-        setModalIcon('checkcircle')
-        setModalColor('#5DED47')
-        setModalVisible(true); 
+        Toast.show({
+          type: 'success', 
+          position: 'top', 
+          text1: 'Saved!',
+          text2: 'Thank you for voting!',
+          visibilityTime:500,
+          autoHide: true,
+          topOffset:30,
+          onHide:()=>{
+            setName('');
+            setAge('');
+            setSelectedGame('');
+            setPlatform(undefined);
+            navigation.navigate('Charts');  
+          }
+          
+        });
       })
       .catch(() => {
-        setModalText('Error on saving data!');
-        setModalIcon('closecircleo')
-        setModalColor('#FF3D3D')
-        setModalVisible(true);
-        console.log('Error on saving data!')
+        Toast.show(
+          {
+            type: 'error', 
+            position: 'top', 
+            text1: 'Error!',
+            text2: 'Error on saving data!',
+            visibilityTime:500,
+            autoHide: true,
+            topOffset:30,
+          }
+        )
       })
     }
 
@@ -170,34 +181,14 @@ const CreatRecord = () => {
               </Text>
             </RectButton>
           </View>
- {/*          <View style={styles.footer}>
+           <View style={styles.footer}>
             <RectButton style={[styles.button, styles.buttonEnabled]} onPress={handleOnPress} >
               <Text style={styles.buttonText}>
                 GRAPHS
               </Text>
             </RectButton>
-          </View> */}
-          <View style={modalStyles.centeredView}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onShow={()=>
-                    setTimeout(() => {
-                      setModalVisible(!modalVisible);
-                      navigation.navigate('Charts');
-                    }, 500)
-                }
-            >
-              <View style={modalStyles.centeredView}>
-                <View style={[modalStyles.modalView, {  backgroundColor: modalColor }]}>
-                  <AntDesign name={modalIcon} size={24} color="black" />
-                  <Text style={styles.buttonText}>{modalText}</Text> 
-                </View>
-              </View>
-            </Modal>            
           </View>
-      </View>
+    </View>
     </>
   );
 
