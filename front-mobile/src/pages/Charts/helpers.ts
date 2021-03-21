@@ -19,7 +19,7 @@ export const buildBarSeries = (games: Game[], records: RecordItem[]) => {
     return b.y - a.y;
   });
 
-  return sortedGames.slice(0, 8);
+  return sortedGames.slice(0,5);
 };
 
 export const getPlatformChartData = (records: RecordItem[]) => {
