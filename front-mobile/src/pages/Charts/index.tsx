@@ -39,12 +39,11 @@ const Charts = () => {
     const [genderData, setGenderData] = useState<PieChartData[]>([initialPieData]);
     // React hook -> the first component is the variable, the second it the function to update the first variable (it is possible to use any name for variable and function)
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [color, setColor] = useState<string>();
+    
   
   
     useEffect(()=>{
       setIsLoading(true);
-      setColor("#00D4FF");
         async function getData(){
           const recordsResponse = await axios.get(`${BASE_URL}/records`);
           const gamesResponse = await axios.get(`${BASE_URL}/games`);
@@ -74,7 +73,7 @@ const Charts = () => {
         ?
         (
           <View style={styles.sppiner}>
-            <Bounce size={45} color={color} />
+            <Bounce size={45} color={"#ed7947"} />
           </View>
         )
         :

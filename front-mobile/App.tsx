@@ -11,26 +11,58 @@ import {
 import Routes from './src/routes';
 import Toast, { BaseToast } from 'react-native-toast-message';
 
-
 const toastConfig = {
   success: ({ ...rest }) => (
     <BaseToast
       {...rest}
-      contentContainerStyle={{ paddingHorizontal: 15 }}
+      style={{ borderLeftColor: 'green' }}
+    
+      contentContainerStyle={{ paddingHorizontal: 10 }}
       text1Style={{
         fontSize: 20,
-        fontWeight: '400'
+        fontWeight: 'bold'
       }}
       text1NumberOfLines={1}
+      leadingIcon={require('./src/assets/success.png')}
+      leadingIconStyle={{
+        width: 30,
+        height:30
+      }}
       text2NumberOfLines={1}
       text2Style={{
         fontSize: 20,
+        fontWeight: 'normal'
+      }}
+      
+    />
+  ),
+
+  error: ({...rest }) => (
+    <BaseToast
+      {...rest}
+      style={{ borderLeftColor: 'red' }}
+      contentContainerStyle={{ paddingHorizontal: 10 }}
+      text1Style={{
+        fontSize: 20,
         fontWeight: 'bold'
+      }}
+      text1NumberOfLines={1}
+      leadingIcon={require('./src/assets/error.png')}
+      leadingIconStyle={{
+        width: 30,
+        height:30
+      }}
+      text2NumberOfLines={1}
+      text2Style={{
+        fontSize: 20,
+        fontWeight: 'normal'
       }}
  
     />
   )
+
 };
+
 
 
 export default function App() {
