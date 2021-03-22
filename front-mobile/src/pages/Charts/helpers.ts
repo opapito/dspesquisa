@@ -50,7 +50,7 @@ export const getGenderChartData = (records: RecordItem[]) => {
 
    const xy:PieChartData[] = [];
    Object.keys(genderByAmount).forEach(key=>{
-      xy.push({ x: `${key}\n${(100*(genderByAmount[key]/records.length)).toFixed(1)}`, y: genderByAmount[key]})
+      xy.push({ x: `${key}\n${(100*(genderByAmount[key]/records.length)).toFixed(1)} %`, y: genderByAmount[key]})
    })
 
   return xy;

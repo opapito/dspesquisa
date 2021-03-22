@@ -7,18 +7,13 @@ import { VictoryBar, VictoryPie, VictoryGroup, VictoryLabel} from 'victory-nativ
 import { PieChartData, BarChartData } from '../../pages/Types';
 import { Bounce } from 'react-native-animated-spinkit';
 
-
-
-const initialPieData = {
-  x:"",
-  y:0
-}
+const initialPieData = [{x:" ", y:0}]
 
 const BASE_URL = 'http://192.168.1.13:8080';
 //! It is not possible to use localhost with expo. It is necessary to use the same ip of the browser expo running application
 
 const CenteredLabel = (props:any) => {
-  const { datum, scale, data } = props;
+  const { datum, scale } = props;
   const centerPos = scale.y(datum._y / 2);
   const style = { fill: "white" };
   const styleUnderLabel = { fill: "white" };
@@ -35,8 +30,8 @@ const CenteredLabel = (props:any) => {
 const Charts = () => {
     // creating three states for each graph
     const [barChartData, setBarChartData] = useState<BarChartData[]>([]);
-    const [platformData, setPlatformData] = useState<PieChartData[]>([initialPieData]);
-    const [genderData, setGenderData] = useState<PieChartData[]>([initialPieData]);
+    const [platformData, setPlatformData] = useState<PieChartData[]>(initialPieData);
+    const [genderData, setGenderData] = useState<PieChartData[]>(initialPieData);
     // React hook -> the first component is the variable, the second it the function to update the first variable (it is possible to use any name for variable and function)
     const [isLoading, setIsLoading] = useState<boolean>(true);
     
@@ -59,7 +54,7 @@ const Charts = () => {
           
           setIsLoading(false); 
         }
-        getData();
+      getData();
 
   }, [])
 
@@ -93,7 +88,9 @@ const Charts = () => {
                 
                 animate={{
                   duration: 2000,
-                  onLoad: { duration: 1000 },
+                  onLoad: { 
+                    duration: 1000,
+                  },
                   easing: "bounce"                 
                 }}
 
@@ -106,18 +103,26 @@ const Charts = () => {
               data={platformData}
               animate={{
                 duration: 2000,
-                onLoad: { duration: 1000 },
+                onLoad: { 
+                  duration: 1000,
+                  before: () => ({_y: 50, label: " "}),
+                  after: (datum) => ({_y: datum._y})
+                },
               }}
 
             />
             <Text style={styles.textLogo2}>Genres</Text>
             <VictoryPie
               colorScale={["#a8dadc", "#ed7947", "#00D4FF", "#ffd6a5"]}
-              labelRadius={50}
+              labelRadius={48}
               data={genderData}
               animate={{
                 duration: 2000,
-                onLoad: { duration: 1000 },
+                onLoad: { 
+                  duration: 1000,
+                  before: () => ({_y: 50, label: " "}),
+                  after: (datum) => ({_y: datum._y})
+                },
               }}
             />
           </View>
@@ -136,6 +141,7 @@ export default Charts;
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    backgroundColor:'#4c5d67' 
   },
   scrollView: {
     backgroundColor:'#4c5d67'    
@@ -143,24 +149,24 @@ const styles = StyleSheet.create({
   insideView:{
     paddingRight: '5%',
     paddingLeft: '5%',
-    paddingBottom: 10,
+    paddingBottom: 5,
     alignItems: 'center',
   },
   sppiner: {
     flex:1,
     alignItems: 'center',
     justifyContent:'center',
-    borderColor:'#00D4FF',
+    borderColor:'#ed7947',
     paddingTop:'1%',
+    
   },
   textLogo2: {
-    paddingTop:15,
+    paddingTop:10,
     justifyContent: 'flex-start',
     fontWeight: 'bold',
     fontFamily: "Play_700Bold",
     fontSize: 18,
     color: '#FFF'
   },
-
 });
 

@@ -60,10 +60,7 @@ const toastConfig = {
  
     />
   )
-
 };
-
-
 
 export default function App() {
     const [fontsLoaded] = useFonts({
