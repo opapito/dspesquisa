@@ -187,7 +187,7 @@ const CreatRecord = () => {
           <View style={styles.footer}>
             <RectButton style={[styles.button, isEnabledBtn ? styles.buttonEnabled : styles.buttonDisabled]} onPress={handleSubmit} enabled={isEnabledBtn}>
               <Text style={styles.buttonText}>
-                SAVE
+                VOTE
               </Text>
             </RectButton>
           </View>
