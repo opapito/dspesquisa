@@ -1,6 +1,6 @@
 # Big Game Survey
 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/opapito/dspesquisa/blob/main/LICENSE)
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/opapito/dspesquisa/blob/master/LICENSE)
 
 ## About the project
 
