@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";
 import { RecordsResponse } from '../../pages/Records/types';
 import Records from '../../pages/Records'
 import Charts from '../../pages/Charts';
-
-type Props = {
-  link: string;
-  linkText: string;
-}
 
 const override = css`
   display: block;
@@ -20,7 +14,7 @@ const override = css`
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Filters = ({ link, linkText }: Props) => {
+const Filters = () => {
     const [startDate, setStartDate]   = useState('');
     const [endDate, setEndDate]   = useState('');
     const [loading, setLoading] = useState<boolean>();
@@ -28,6 +22,7 @@ const Filters = ({ link, linkText }: Props) => {
     const [activePage, setActivePage] = useState(0);
     const [recordsResponse, setRecordsResponse] = useState<RecordsResponse>();
     const [recordsResponseNotPg, setRecordsResponseNotPg] = useState<RecordsResponse>();
+    const [showRecords, setShowRecords] = useState(true) 
   
 
       //* React Hooks
@@ -116,11 +111,11 @@ const Filters = ({ link, linkText }: Props) => {
           />
           <button className="clean-filters" onClick={handleClearBtn}> CLEAR </button>
           
-        <Link to={link}>
-          <button className="action-filters">
-            {linkText}
+        
+        <button className="action-filters" onClick={()=>setShowRecords(!showRecords)}>
+            {showRecords ? 'SEE GRAPHS' : 'SEE TABLE'}
         </button>
-        </Link>
+        
         </div> 
         
           {loading 
@@ -130,7 +125,7 @@ const Filters = ({ link, linkText }: Props) => {
             </div>
           :
           (
-            link === "/charts" ? 
+            showRecords ? 
             (
               <Records
               recordsResponse={recordsResponse}

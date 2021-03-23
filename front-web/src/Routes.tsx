@@ -12,10 +12,10 @@ const Routes = () =>(
         <Home />
       </Route>
       <Route path="/records">
-        <Filters link="/charts" linkText="SEE GRAPHS" />
+        <Filters />
       </Route>
       <Route path="/charts">
-        <Filters link="/records" linkText="SEE TABLE" />
+        <Filters />
       </Route>
     </Switch>
   </BrowserRouter>
