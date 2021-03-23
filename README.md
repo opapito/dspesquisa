@@ -4,7 +4,7 @@
 
 ## About the project
 
-The [Big Game Survey project](https://sds1-opapito.netlify.app/ "Big Game Survey") is a  survey app composed of a front-end web application written in React/TypeScript, a front-mobile, written in react native, and a Spring Data Java Persistence API (JPA) with Hibernate Object-Relational Mapping (ORM) working as back-end serving data through a PostgreSQL database hosted on Heroku. The front-web app is hosted on Netlify. The survey data collected in the front-mobile is stored in the back-end and can be accessed through the front-web app. The app core was developed during the second edition of dev superior week, but it was refactored after with the adding of several features enhancing its functionality, UI and reliability, notabily in the front-mobile version.
+The [Big Game Survey project](https://sds1-opapito.netlify.app/ "Big Game Survey") is a  survey app composed of a front-end web application written in React/TypeScript, a front-mobile, written in react native, and a Spring Data Java Persistence API (JPA) with Hibernate Object-Relational Mapping (ORM) working as back-end serving data through a PostgreSQL database hosted on Heroku. The front-web app is hosted on Netlify. The survey data collected in the front-mobile is stored in the back-end and can be accessed through the front-web app. The app core was developed during the second edition of dev superior week, but it was refactored after with the adding of several features enhancing its functionality, UI and reliability, notably in the front-mobile version.
 
 ## Mobile layout
 
@@ -45,8 +45,8 @@ The [Big Game Survey project](https://sds1-opapito.netlify.app/ "Big Game Survey
 
 - HTML / CSS / JS / TypeScript
 - React Native
+- Expo framework
 - Victory Charts
-- Expo
 
 
 ### Deployment in production
