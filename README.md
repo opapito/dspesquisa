@@ -1,4 +1,4 @@
-# Big Game Survey
+# Game Survey
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/opapito/dspesquisa/blob/master/LICENSE)
 
@@ -53,7 +53,7 @@ The [Game Survey project](https://sds1-opapito.netlify.app/ "Game Survey") is a 
 
 - Back end: Heroku
 - Front end web: Netlify
-- Database: Postgresql
+- Database: PostgreSQL
 
 ## Installing
 
@@ -63,7 +63,7 @@ Prerequisites: Java 11
 
 ```bash
 # The first step is to clone the project
-git clone https://github.com/opapito/dsdeliver-sds2
+git clone https://github.com/opapito/dspesquisa.git
 
 # Enter the project directory
 cd backend
@@ -78,7 +78,7 @@ Prerequisites: npm / yarn
 
 ```bash
 # The first step is to clone the project
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/opapito/dspesquisa.git
 
 # Enter the project directory
 cd front-web
