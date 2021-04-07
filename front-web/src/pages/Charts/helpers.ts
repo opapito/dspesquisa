@@ -52,7 +52,7 @@ export const getGenderChartData = (records: RecordItem[]) => {
      }
 
      return accumulator;
-   }, {} as Record<string, number>);
+   }, {} as Record<string, number>); //* Record<Keys, Type> https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeystype
 
    const labels = Object.keys(genderByAmount);
    const series = Object.values(genderByAmount);
